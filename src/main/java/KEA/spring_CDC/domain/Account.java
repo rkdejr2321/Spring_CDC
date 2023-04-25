@@ -14,21 +14,23 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Account {
 
     @Id
+    @Column(name = "account_id")
     private String accountId;
 
-    @Column
+    @Column(name = "role_id")
     private String roleId;
 
-    @Column
+    @Column(name = "user_name")
     private String userName;
 
-    @Column
+    @Column(name = "user_description")
     private String userDescription;
 
-    @Column
+    @Column(name = "update_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 

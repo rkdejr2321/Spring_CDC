@@ -1,6 +1,8 @@
 package KEA.spring_CDC.Controller;
 
-import KEA.spring_CDC.Repository.AccountRepository;
+import KEA.spring_CDC.domain.AccountForm;
+import KEA.spring_CDC.sinkRepository.AccountSinkRepository;
+import KEA.spring_CDC.sourceRepository.AccountSourceRepository;
 import KEA.spring_CDC.domain.Account;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -17,19 +21,40 @@ import java.util.List;
 @Slf4j
 public class AccountController {
 
-    private final AccountRepository accountRepository;
+    private final AccountSourceRepository accountSourceRepository;
+    private final AccountSinkRepository accountSinkRepository;
+
+
+    @GetMapping("/account-form")
+    public String accountForm(Model model) {
+        model.addAttribute("form", new AccountForm());
+        return "createAccountForm";
+    }
 
     @PostMapping("/account")
-    public void insertAccount(@RequestBody Account account) {
-        log.info(account.getAccountId());
-        accountRepository.save(account);
+    public String insertAccount(AccountForm form) {
+
+        Account account = Account.builder()
+                .accountId(form.getAccountId())
+                .roleId(form.getRoleId())
+                .userName(form.getUserName())
+                .userDescription(form.getUserDescription())
+                .updateTime(LocalDateTime.now())
+                .deleted("false")
+                .build();
+
+        accountSourceRepository.save(account);
+
+        return "redirect:/account-list";
     }
 
     @GetMapping("/account-list")
     public String accountList(Model model) {
-        List<Account> accountList = accountRepository.findAll();
+        List<Account> sourceList = accountSourceRepository.findAll();
+        List<Account> sinkList = accountSinkRepository.findAll();
 
-        model.addAttribute("accounts", accountList);
+        model.addAttribute("sourceList", sourceList);
+        model.addAttribute("sinkList", sinkList);
 
         return "account";
     }
