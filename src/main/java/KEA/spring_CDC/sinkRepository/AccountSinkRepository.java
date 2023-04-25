@@ -1,6 +1,7 @@
 package KEA.spring_CDC.sinkRepository;
 
 import KEA.spring_CDC.domain.Account;
+import KEA.spring_CDC.domain.SinkAccount;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +13,8 @@ import java.util.List;
 
 @Repository
 @Transactional
-public interface AccountSinkRepository extends JpaRepository<Account, String> {
+public interface AccountSinkRepository extends JpaRepository<SinkAccount, String> {
 
-    Account save(Account account);
 
-    List<Account> findAll();
+    List<SinkAccount> findAll();
 }

@@ -1,6 +1,7 @@
 package KEA.spring_CDC.Controller;
 
 import KEA.spring_CDC.domain.AccountForm;
+import KEA.spring_CDC.domain.SinkAccount;
 import KEA.spring_CDC.sinkRepository.AccountSinkRepository;
 import KEA.spring_CDC.sourceRepository.AccountSourceRepository;
 import KEA.spring_CDC.domain.Account;
@@ -50,7 +51,7 @@ public class AccountController {
     @GetMapping("/account-list")
     public String accountList(Model model) {
         List<Account> sourceList = accountSourceRepository.findAll();
-        List<Account> sinkList = accountSinkRepository.findAll();
+        List<SinkAccount> sinkList = accountSinkRepository.findAll();
 
         model.addAttribute("sourceList", sourceList);
         model.addAttribute("sinkList", sinkList);
