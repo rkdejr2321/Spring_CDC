@@ -15,10 +15,9 @@
                 <th>user_name</th>
                 <th>user_description</th>
                 <th>update_time</th>
-                <th>__deleted</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody style="text-align: center;">
                 <tr th:each="account : ${sourceList}">
                     <td th:text="${account.accountId}"></td>
                     <td th:text="${account.roleId}"></td>
@@ -27,13 +26,20 @@
                     <td th:text="${account.updateTime}"></td>
                     <td>
                         <form th:action="@{/account/delete(id=${account.accountId})}" method="post">
-                            <button type="submit" class="btn btn-danger" >Delete</button>
+                            <button type="submit" class="btn btn-danger" >DELETE</button>
                         </form>
                     </td>
-
+                    <td>
+                        <div style="text-align: center">
+                            <a th:href="@{/account/{id}/edit (id=${account.accountId})}" style="align-content: center"><button class="btn btn-primary" >UPDATE</button></a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <div style="text-align: center">
+            <a href="/account-form" style="align-content: center"><button class="btn btn-primary" >INSERT</button></a>
+        </div>
     </div>
     <div th:replace="fragments/footer :: footer" />
     </div>

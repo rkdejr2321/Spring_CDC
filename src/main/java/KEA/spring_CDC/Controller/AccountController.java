@@ -25,13 +25,31 @@ public class AccountController {
 
     @GetMapping("/account-form")
     public String accountForm(Model model) {
+
         model.addAttribute("form", new AccountForm());
+
         return "createAccountForm";
+    }
+
+    @GetMapping("account/{id}/edit")
+    public String updateItemForm(@PathVariable("id") String accountId, Model model) {
+
+        Account account = accountSourceRepository.findByAccountId(accountId);
+
+        AccountForm form = new AccountForm();
+        form.setAccountId(account.getAccountId());
+        form.setRoleId(account.getRoleId());
+        form.setUserName(account.getUserName());
+        form.setUserDescription(account.getUserDescription());
+
+        model.addAttribute("form", form);
+        return "updateAccountForm";
+
     }
 
     @PostMapping("/account")
     public String insertAccount(AccountForm form) {
-
+        log.info(form.toString());
         Account account = Account.builder()
                 .accountId(form.getAccountId())
                 .roleId(form.getRoleId())
@@ -45,7 +63,7 @@ public class AccountController {
         return "redirect:/";
     }
 
-    @GetMapping("/account-list")
+    @GetMapping("/")
     public String accountList(Model model) {
         List<Account> sourceList = accountSourceRepository.findAll();
         List<SinkAccount> sinkList = accountSinkRepository.findAll();
@@ -62,6 +80,6 @@ public class AccountController {
         Account byAccountId = accountSourceRepository.findByAccountId(accountId);
         accountSourceRepository.delete(byAccountId);
 
-        return "redirect:/account-list";
+        return "redirect:/";
     }
 }
