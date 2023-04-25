@@ -33,8 +33,4 @@ public class Account {
     @Column(name = "update_time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
-    @Column(name = "__deleted")
-    @ColumnDefault("'false'")
-    private String deleted;
 }
