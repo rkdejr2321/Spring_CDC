@@ -19,13 +19,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="account : ${sourceList}">
-                <td th:text="${account.accountId}"></td>
-                <td th:text="${account.roleId}"></td>
-                <td th:text="${account.userName}"></td>
-                <td th:text="${account.userDescription}"></td>
-                <td th:text="${account.updateTime}"></td>
-            </tr>
+                <tr th:each="account : ${sourceList}">
+                    <td th:text="${account.accountId}"></td>
+                    <td th:text="${account.roleId}"></td>
+                    <td th:text="${account.userName}"></td>
+                    <td th:text="${account.userDescription}"></td>
+                    <td th:text="${account.updateTime}"></td>
+                    <td>
+                        <form th:action="@{/account/delete(id=${account.accountId})}" method="post">
+                            <button type="submit" class="btn btn-danger" >Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
             </tbody>
         </table>
     </div>

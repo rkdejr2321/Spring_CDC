@@ -17,4 +17,7 @@ public interface AccountSourceRepository extends JpaRepository<Account, String> 
     Account save(Account account);
 
     List<Account> findAll();
+
+    Account findByAccountId(String id);
+    void delete(Account account);
 }
