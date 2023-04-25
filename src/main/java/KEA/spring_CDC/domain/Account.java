@@ -30,7 +30,7 @@ public class Account {
     @Column(name = "user_description")
     private String userDescription;
 
-    @Column(name = "update_time")
+    @Column(name = "update_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 }
