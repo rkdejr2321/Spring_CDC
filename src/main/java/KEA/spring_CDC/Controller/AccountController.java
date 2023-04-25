@@ -40,12 +40,11 @@ public class AccountController {
                 .userName(form.getUserName())
                 .userDescription(form.getUserDescription())
                 .updateTime(LocalDateTime.now())
-                .deleted("false")
                 .build();
 
         accountSourceRepository.save(account);
 
-        return "redirect:/account-list";
+        return "redirect:/";
     }
 
     @GetMapping("/account-list")
